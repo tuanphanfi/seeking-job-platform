@@ -14,6 +14,11 @@ let originalJobs = [];
 
 export default function Jobs() {
   let history = useHistory();
+  
+  const getDetail = (id)=>{
+    history.push(`/jobs/${id}`)
+  }
+
   let query = useQuery();
   const [jobList, setJobList] = useState([]);
   const getData = async () => {
@@ -67,17 +72,17 @@ export default function Jobs() {
   }
 
   return (
-    <div className="container border border-blue text-left d-flex flex-column align-items-center">
+    <div  className="container border border-blue text-left d-flex flex-column align-items-center">
       {/* search input */}
       {/* moi lan submit cai form, se return 1 value. e === */}
-      <form onSubmit={(e) => handleSearch(e)}>
-        <input
+      <form className="w-75" onSubmit={(e) => handleSearch(e)}>
+        <input 
           onChange={(e) => handleOnChange(e)}
-          className="row w-100"
+          className="d-inline-block w-75 px-2 py-1"
           type="text"
         />{" "}
-        <button type="submit" className="btn btn-danger text-white">
-          Search
+        <button type="submit" className=" btn btn-danger text-white d-inline-block">
+          Search  
         </button>
         {/*  */}
       </form>
@@ -85,7 +90,7 @@ export default function Jobs() {
       <h1>{jobList.length} IT jobs in Vietnam for you</h1>
       {jobList.map((item, index) => {
         return (
-          <div onClick={(index) => {}} className="list-item row m-1 bg-warning">
+          <div onClick={()=>getDetail(item.id)} className="list-item row m-1 bg-warning p-2">
             {/* img */}
             <div className="col-2 d-flex justify-content-center align-items-center border border-danger">
               <img src={item.img} alt="" className="" />
@@ -94,7 +99,7 @@ export default function Jobs() {
             {/* content */}
             <div className="col-8">
               <h3>{item.title}</h3>
-              <h4>{item.salary}</h4>
+              <h4>${item.salary}</h4>
               <ul>
                 {item.benefits.map((benefit, indexBenefit) => (
                   <li>{benefit}</li>
@@ -108,14 +113,14 @@ export default function Jobs() {
             </div>
             {/* location - time */}
             <div className="col-2">
-              <h5>{item.isHotjob ? "Hot Job" : null}</h5>
-              <h4>
-                {item.city} - district: {item.district}
-              </h4>
+              <h5 className="text-center text-white bg-danger ">{item.isHotjob ? "Hot Job" : null}</h5>
+              <p>
+                {item.city} - District: {item.district}
+              </p>
               {/* test */}
-              <h4>
+              <h6>
                 <Moment fromNow>{item.time}</Moment>
-              </h4>
+              </h6>
             </div>
           </div>
         );

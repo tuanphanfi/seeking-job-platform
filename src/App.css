@@ -3,5 +3,11 @@
 }
 
 .list-item {
-  max-width: 800px;
+  /* max-width: 800px; */
+  min-width: 70vw;
+}
+
+.list-item:hover{
+  cursor: pointer;
+  opacity: 0.8;
 }
